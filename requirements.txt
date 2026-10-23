@@ -1,0 +1,13 @@
+# LangChain
+langchain
+langchain-community
+langchain-text-splitters
+
+# Ollama chat and embeddings
+langchain-ollama
+
+# Local vector store
+faiss-cpu
+
+# Environment variables
+python-dotenv
