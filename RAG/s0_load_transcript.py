@@ -1,6 +1,6 @@
 from urllib.parse import urlparse, parse_qs
 from youtube_transcript_api import YouTubeTranscriptApi
-
+from langchain_core.runnables import RunnableLambda
 
 def get_video_id(youtube_url: str) -> str:
     parsed_url = urlparse(youtube_url)
@@ -16,11 +16,18 @@ def get_video_id(youtube_url: str) -> str:
     # YouTube Shorts URLs
     return parsed_url.path.strip("/").split("/")[-1]
 
-
 def load_transcript(video_id: str) -> list[dict]:
     transcript = YouTubeTranscriptApi().fetch(video_id, languages=["en"])
     return transcript.to_raw_data()
 
+def load_transcript_from_url(youtube_url: str) -> dict:
+    video_id = get_video_id(youtube_url)
+    return {
+        "video_id": video_id,
+        "segments": load_transcript(video_id),
+    }
+    
+transcript_loader = RunnableLambda(load_transcript_from_url)
 
 def main():
     youtube_url = input("Paste a YouTube video URL: ")

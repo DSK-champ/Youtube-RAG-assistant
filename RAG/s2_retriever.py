@@ -7,7 +7,7 @@ EMBEDDING_MODEL = "nomic-embed-text"
 RESULT_COUNT = 7
 
 
-def retrieve_documents(question):
+def create_retriever():
     embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 
     vector_store = FAISS.load_local(
@@ -16,12 +16,10 @@ def retrieve_documents(question):
         allow_dangerous_deserialization=True,
     )
 
-    retriever = vector_store.as_retriever(
+    return vector_store.as_retriever(
         search_type="similarity",
         search_kwargs={"k": RESULT_COUNT},
     )
-
-    return retriever.invoke(question)
 
 
 def main():
@@ -31,8 +29,9 @@ def main():
         print("Please enter a question.")
         return
 
-    results = retrieve_documents(question)
-
+    retriever = create_retriever()
+    results = retriever.invoke(question)
+    
     if not results:
         print("No matching transcript chunks were found.")
         return
