@@ -1,7 +1,7 @@
 # we will turn the transcript into documents then conver them into vector embeddings then finally store them in FAISS
 
 import math
-from load_transcript import get_video_id, load_transcript
+from s0_load_transcript import get_video_id, load_transcript
 from langchain_core.documents import Document
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
