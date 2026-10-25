@@ -7,7 +7,7 @@ EMBEDDING_MODEL = "nomic-embed-text"
 RESULT_COUNT = 7
 
 
-def create_retriever():
+def create_retriever(k: int = RESULT_COUNT):
     embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 
     vector_store = FAISS.load_local(
@@ -18,7 +18,7 @@ def create_retriever():
 
     return vector_store.as_retriever(
         search_type="similarity",
-        search_kwargs={"k": RESULT_COUNT},
+        search_kwargs={"k": k},
     )
 
 
