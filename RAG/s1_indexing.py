@@ -14,12 +14,11 @@ def cosine_distance(a, b):
     norm_b = math.sqrt(sum(y * y for y in b))
     return 1 - dot / (norm_a * norm_b)
 
+
 def index_transcript(transcript_data: dict) -> str:
     video_id = transcript_data["video_id"]
     segments = transcript_data["segments"]
-
-    # Move the existing embedding, semantic chunking,
-    # Document creation, and FAISS saving code here.
+    index_path = transcript_data["index_path"]
     
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
     
@@ -82,14 +81,9 @@ def index_transcript(transcript_data: dict) -> str:
         batch = documents[start : start + batch_size]
         vector_store.add_documents(batch)
 
-    # Save the index locally so you can load it later
-    vector_store.save_local("FAISS")
-
-    print(f"Saved {len(documents)} transcript chunks to the FAISS index.")
-
-    index_path = "FAISS"
-    vector_store.save_local(index_path)
-    print(f"Saved {len(documents)} transcript chunks to the FAISS index.")
+    vector_store.save_local(index_path) 
+    print(f"Saved {len(documents)} transcript chunks to the {index_path}.")
     return index_path
+
 
 transcript_indexer = RunnableLambda(index_transcript)

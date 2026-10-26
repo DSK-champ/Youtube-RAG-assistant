@@ -1,3 +1,4 @@
+import hashlib
 from urllib.parse import urlparse, parse_qs
 from youtube_transcript_api import YouTubeTranscriptApi
 from langchain_core.runnables import RunnableLambda
@@ -26,6 +27,10 @@ def load_transcript_from_url(youtube_url: str) -> dict:
         "video_id": video_id,
         "segments": load_transcript(video_id),
     }
+
+def create_store_id(youtube_url: str) -> str:
+    video_id = get_video_id(youtube_url)
+    return hashlib.sha256(video_id.encode("utf-8")).hexdigest()[:16]
     
 transcript_loader = RunnableLambda(load_transcript_from_url)
 
