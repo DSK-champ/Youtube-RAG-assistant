@@ -1,8 +1,8 @@
 from langchain_core.output_parsers import StrOutputParser
 from langchain_ollama import ChatOllama
 
-from rag.s2_retriever import create_retriever
-from rag.s3_augmentation import document_formatter, prompt
+from rag.steps.s2_retriever import create_retriever
+from rag.steps.s3_augmentation import document_formatter, prompt
 
 #==============================================================#
 # this file is only for testing the flow and output generation #

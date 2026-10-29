@@ -4,10 +4,10 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_ollama import ChatOllama
 
-from rag.s0_load_transcript import create_store_id, get_video_id, transcript_loader
-from rag.s1_indexing import transcript_indexer
-from rag.s2_retriever import *
-from rag.s3_augmentation import document_formatter, prompt
+from rag.steps.s0_load_transcript import create_store_id, get_video_id, transcript_loader
+from rag.steps.s1_indexing import transcript_indexer
+from rag.steps.s2_retriever import *
+from rag.steps.s3_augmentation import document_formatter, prompt
 
 
 class RAG:

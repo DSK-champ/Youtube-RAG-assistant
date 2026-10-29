@@ -1,5 +1,5 @@
 from operator import itemgetter
-from rag.schemas import QuestionRewrites
+from rag.steps.schemas import QuestionRewrites
 
 from langchain_core.documents import Document
 from langchain_core.language_models import BaseChatModel
