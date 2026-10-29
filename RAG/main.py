@@ -1,4 +1,4 @@
-from rag_chain import RAG
+from rag.rag_chain import RAG
 
 def main():
     youtube_url = input("Paste a YouTube video URL: ").strip()

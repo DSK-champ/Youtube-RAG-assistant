@@ -11,3 +11,7 @@ faiss-cpu
 
 # Environment variables
 python-dotenv
+
+# API
+fastapi
+uvicorn[standard]

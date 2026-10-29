@@ -1,18 +1,17 @@
 from pathlib import Path
-from schemas import QuestionRewrites
-
+from urllib.parse import urlparse
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_ollama import ChatOllama
 
-from s0_load_transcript import create_store_id, transcript_loader
-from s1_indexing import transcript_indexer
-from s2_retriever import *
-from s3_augmentation import document_formatter, prompt
+from rag.s0_load_transcript import create_store_id, get_video_id, transcript_loader
+from rag.s1_indexing import transcript_indexer
+from rag.s2_retriever import *
+from rag.s3_augmentation import document_formatter, prompt
 
 
 class RAG:
-    INDEX_ROOT = Path("FAISS")
+    INDEX_ROOT = Path(__file__).resolve().parent / "FAISS"
     K = 7
 
     @staticmethod
@@ -44,10 +43,34 @@ class RAG:
             cls.create_store(youtube_url, str(index_path))
 
         return str(index_path)
+    
+    @staticmethod
+    def extract_video_id(youtube_url: str) -> str:
+        parsed_url = urlparse(youtube_url)
+        hostname = (parsed_url.hostname or "").lower()
 
+        allowed_hosts = {
+            "youtube.com",
+            "www.youtube.com",
+            "m.youtube.com",
+            "music.youtube.com",
+            "youtu.be",
+            "www.youtu.be",
+        }
+
+        if hostname not in allowed_hosts:
+            raise ValueError("URL must be from YouTube.")
+
+        video_id = get_video_id(youtube_url)
+
+        if not video_id:
+            raise ValueError("URL does not contain a video ID.")
+
+        return video_id
 
     def __init__(self, youtube_url: str, k: int = 7):
         self.k = k
+        self.video_id = self.extract_video_id(youtube_url)
         self.index_path = self.get_or_create_index(youtube_url)
         self.retriever = create_retriever(index_path=self.index_path, k=self.k)
         
