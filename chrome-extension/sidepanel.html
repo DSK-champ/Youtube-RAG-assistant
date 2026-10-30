@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube RAG Assistant</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="app">
+      <header class="header">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">Y</span>
+          <h1>YouTube RAG Assistant</h1>
+        </div>
+
+        <button id="new-video-toggle" type="button" hidden>
+          Index new video
+        </button>
+      </header>
+
+      <section id="video-setup" class="video-card">
+        <p id="video-message" class="video-message">
+          Checking active tab…
+        </p>
+        <button id="index-button" type="button" disabled>
+          Index captions
+        </button>
+      </section>
+
+      <p id="status-message" role="status"></p>
+
+      <section id="chat" class="chat" aria-label="Chat" hidden>
+        <div id="messages" class="messages" aria-live="polite"></div>
+
+        <form id="question-form" class="question-form">
+          <label class="visually-hidden" for="question">
+            Your question
+          </label>
+          <textarea
+            id="question"
+            name="question"
+            placeholder="Ask about this video..."
+            rows="2"
+            disabled
+          ></textarea>
+          <button id="ask-button" type="submit" disabled>Ask</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="sidepanel.js"></script>
+  </body>
+</html>

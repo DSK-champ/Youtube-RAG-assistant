@@ -7,5 +7,8 @@ __pycache__/
 # Local FAISS indexes
 /RAG/FAISS/
 
-# Local environment settings and secrets
+# environment settings and secrets
 .env.local
+.env
+__pycache__/
+*.py[cod]

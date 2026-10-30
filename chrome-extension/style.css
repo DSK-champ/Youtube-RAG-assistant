@@ -1,0 +1,316 @@
+:root {
+  color-scheme: dark;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 280px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#new-video-toggle {
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.header h1 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.header p,
+.video-message,
+.empty-message {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.video-card {
+  padding: 14px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 14px;
+  background: #1e293b;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #ef4444;
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.video-card button {
+  margin-top: 12px;
+}
+
+button:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+#status-message {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.chat {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.messages {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.turn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  width: fit-content;
+  max-width: 88%;
+  overflow-wrap: anywhere;
+  border-radius: 16px;
+  padding: 11px 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.message p {
+  margin: 5px 0 0;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: #3b82f6;
+  color: white;
+}
+
+.message.assistant {
+  align-self: flex-start;
+  background: #404040;
+  color: #f1f5f9;
+}
+
+.sources {
+  max-width: 95%;
+  align-self: flex-start;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #262626;
+  font-size: 13px;
+}
+
+.sources summary {
+  padding: 10px 13px;
+  color: #cbd5e1;
+  cursor: pointer;
+  user-select: none;
+}
+
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 0;
+  padding: 0 10px 10px;
+  list-style: none;
+}
+
+.source-chunk {
+  border-radius: 10px;
+  padding: 11px;
+  background: #0f172a;
+}
+
+.source-chunk a {
+  color: #fca5a5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.source-chunk a:hover {
+  text-decoration: underline;
+}
+
+.source-chunk p {
+  margin: 6px 0 0;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.question-form {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-end;
+  gap: 10px;
+  border-top: 1px solid rgb(255 255 255 / 10%);
+  padding-top: 12px;
+}
+
+textarea {
+  min-width: 0;
+  flex: 1;
+  resize: vertical;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  padding: 11px;
+  background: #020617;
+  color: white;
+  font: inherit;
+}
+
+.ask-button {
+  flex: 0 0 auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@keyframes ripple-dot {
+  0%,
+  60%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.35;
+  }
+
+  30% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+@keyframes thinking-float {
+  0%,
+  100% {
+    transform: translateY(1.5px);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translateY(-2.5px);
+    opacity: 1;
+  }
+}
+
+.thinking-indicator {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 12px;
+  align-self: flex-start;
+  border-radius: 16px;
+  padding: 12px 16px;
+  background: #404040;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.thinking-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ripple-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #fca5a5;
+  animation: ripple-dot 1.4s ease-in-out infinite;
+}
+
+.thinking-text {
+  display: inline-block;
+  animation: thinking-float 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple-dot,
+  .thinking-text {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #ef4444;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 18px;
+}

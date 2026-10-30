@@ -89,13 +89,13 @@ class RAG:
         
         
 
-        answer_chain       = prompt  |  self.llm  |  StrOutputParser()
         question_input     = RunnableLambda(lambda question: {"question": question})
         query_chain        = pass_input(k=self.k) | rewrite_stage(self.rewrite_llm)    | build_queries
         retrieval_chain    = query_chain          | parallel_retrieval(self.retriever) | rrf_ordering
         retrieve_documents = RunnableLambda(lambda data: data["question"]) | retrieval_chain
         format_context     = RunnableLambda(lambda data: data["documents"]) | document_formatter
         answer_input       = RunnableLambda(lambda data: {"question": data["question"],"context": data["context"],})
+        answer_chain       = prompt  |  self.llm  |  StrOutputParser()
 
         self.chain = (
               question_input
